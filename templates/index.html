@@ -1,11 +1,11 @@
 {% extends "base.html" %}
 
-{%block title %} Página Inicial {% endblock %}
+{% block title %} Página Inicial {% endblock %}
 
 {% block header %}
-    <h1>Posts</h1>
+    <h1>Publicações</h1>
     {% if current_user.is_authenticated %}
-    <a class="action" href="{{ url_for('create') }}">New Post</a>
+        <a class="new-post-button" href="{{ url_for('create') }}">Nova Publicação</a>
     {% endif %}
 {% endblock %}
 
@@ -16,16 +16,34 @@
             <div>
                 <h1>{{ post.title }}</h1>
                 <div class="about">
-                    by {{ post.author.username }} on {{ post.created.strftime('%d/%m/%Y') }}
+                    publicado por {{ post.author.username }} em {{ post.created.strftime('%d/%m/%Y') }}
                 </div>
-            </div> 
+            </div>
         </header>
-        <p class="body"> {{post.body}} </p>
+        <p class="body">{{ post.body }}</p>
+        {% if post.image %}
+            <img src="{{ url_for('static', filename='images/' + post.image) }}" alt="Imagem do post" style="max-width: 100%;">
+        {% endif %}
+
+        {% if current_user.is_authenticated %}
+            <div class="post-actions">
+                {% if post.author == current_user %}
+                    <a href="{{ url_for('edit', post_id=post.id) }}" class="edit-link">Editar</a>
+                    <form action="{{ url_for('delete', post_id=post.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="danger">Excluir</button>
+                    </form>
+                {% elif current_user.is_admin %}
+                    <form action="{{ url_for('delete', post_id=post.id) }}" method="post" style="display:inline;">
+                        <button type="submit" class="danger">Excluir</button>
+                    </form>
+                {% endif %}
+            </div>
+        {% endif %}
     </article>
     {% if not loop.last %}
         <hr>
     {% endif %}
 {% else %}
-    <p class="no-posts"> Ops.. There are no posts to display! </p>
+    <p class="no-posts">Ops.. Não há publicações para exibir!</p>
 {% endfor %}
-{% endblock%}
+{% endblock %}

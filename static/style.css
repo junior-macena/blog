@@ -1,24 +1,61 @@
-html { font-family: sans-serif; background: #eee; padding: 1rem;}
-body {max-width: 960px; margin: 0 auto; background: white;}
-h1 { font-family: serif; color: #377ba8;margin: 1rem 0;}
-a {color: #377ba8;}
-hr {border: none; border-top: 1px solid lightgray;}
-nav { background: lightgray; display: flex; align-items: center; padding: 0 0.5rem;}
-nav h1 { flex: auto; margin: 0;}
-.content { padding: 0 1rem 1rem;}
-.post > header > div:first-of-type {flex: auto;}
-.post > header h1 {font-size: 1.5em; margin-bottom: 0;}
-.post .about {color: slategray;font-style: italic;}
-.post .body {white-space: pre-line;}
-.content:last-child {margin-bottom: 0;}
-.no-posts{color: gray;font-style: italic;}
-.content form {margin: 1em 0;display: flex;flex-direction: column;}
-.content label {font-weight: bold;margin-bottom: 0.5em;}
-.content input{margin-bottom: 1em;}
-input.danger {color: #cc2f2e;}
-input[type=submit] {align-self: start;min-width: 10em;}
-.flash {margin: 1em 0;padding: 1em;background: #cae6f6;border: 1px solid #377ba8;}
-.content > header {border-bottom: 1px solid lightgray;display: flex;align-items: flex-end;}
-.content > header h1 {flex: auto;margin: 1rem 0 0.25rem 0;}
- nav ul  {display: flex; list-style: none; margin: 0; padding: 0; }
-nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
+html{font-family:sans-serif;background:#f3f2f2;padding:1rem}
+body{max-width:960px;margin:0 auto;background:white}
+nav h1.logo{font-family:'Fredoka One',sans-serif;font-size:2rem;color:#377ba8;margin:0}
+nav{background:lightgray;display:flex;align-items:center;justify-content:space-between;padding:.75rem 1rem}
+.search-form{flex:1;margin:0 1rem;display:flex;justify-content:center}
+.search-form input{padding:.5rem;font-size:1rem;width:100%;max-width:300px;border:1px solid #ccc;border-radius:4px}
+nav ul li a{color:#377ba8;text-decoration:none;font-weight:bold}
+.flash{margin:1em 0;padding:1em;background:#cae6f6;border:1px solid #377ba8;border-radius:4px;color:#377ba8}
+.form-container{border:1px solid #007BFF;border-radius:8px;padding:30px;background-color:white;margin:20px auto;max-width:400px;box-shadow:0 4px 8px rgba(0,0,0,.2);transition:box-shadow .3s}
+.form-container:hover{box-shadow:0 8px 16px rgba(0,0,0,.3)}
+.form-container label{display:block;margin-bottom:8px;font-weight:bold;color:#377ba8}
+.form-container input[type=text],.form-container input[type=email],.form-container input[type=password],.form-container input[type=submit]{width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:4px;font-size:1rem;transition:border-color .3s}
+.form-container input[type=text]:focus,.form-container input[type=email]:focus,.form-container input[type=password]:focus{border-color:#007BFF;outline:none}
+.form-container input[type=submit]{background-color:#007BFF;color:white;border:none;cursor:pointer;padding:12px;font-size:1rem;transition:background-color .3s ease,transform .2s ease}
+.form-container input[type=submit]:hover{background-color:#0056b3;transform:translateY(-2px)}
+h1{font-family:serif;color:#377ba8;margin:1rem 0}
+hr{border:none;border-top:1px solid lightgray}
+.content{padding:0 1rem 1rem;margin-top:30px}
+.post{margin:1rem 0;padding:1rem;border:1px solid #ccc;border-radius:5px;background-color:white;overflow:hidden}
+.post>header>div:first-of-type{flex:auto}
+.post>header h1{font-size:1.5em;margin-bottom:0;color:#333}
+.post .about{color:slategray;font-style:italic;font-size:.85em}
+button.danger,a.edit-link{padding:.3em .6em;border:none;border-radius:4px;font-size:.8em;font-weight:bold;cursor:pointer;transition:background-color .3s ease,transform .2s ease;line-height:normal;display:inline-flex;align-items:center}
+.button.danger{background-color:#cc2f2e;color:white}
+.button.danger:hover{background-color:#a82827}
+.button.danger:active{background-color:#941c1b;transform:translateY(0)}
+a.edit-link{background-color:#ffbc42;color:white;text-decoration:none;margin-left:.5em;padding:.3em .6em;border-radius:4px}
+a.edit-link:hover{background-color:#e0a835}
+a.edit-link:active{background-color:#d19b30;transform:translateY(0)}
+.post-actions{display:flex;justify-content:flex-end;gap:.5rem;margin-top:.5rem}
+.post footer{margin-top:1rem;display:flex;justify-content:flex-end;gap:.5rem}
+.content:last-child{margin-bottom:0}
+.no-posts{color:gray;font-style:italic}
+.content form{margin:1em 0;display:flex;flex-direction:column}
+.content label{font-weight:bold;margin-bottom:.5em}
+.content input{margin-bottom:1em}
+.input.danger{color:#cc2f2e}
+input[type=submit]{align-self:start;min-width:10em}
+.content>header{border-bottom:1px solid lightgray;display:flex;align-items:flex-end}
+.content>header h1{flex:auto;margin:1rem 0 .25rem 0}
+nav ul{display:flex;list-style:none;margin:0;padding:0}
+nav ul li a,nav ul li span,header .action{display:block;padding:.5rem}
+.scroll-to-top{position:fixed;bottom:20px;right:100px;background-color:#007bff;border-radius:50%;padding:15px;cursor:pointer;z-index:1000;display:none;box-shadow:0 4px 6px rgba(0,0,0,.1)}
+.scroll-to-top svg{width:24px;height:24px}
+.scroll-to-top:hover{background-color:#0056b3}
+.new-post-button{display:inline-block;padding:.4em .8em;background-color:#28a745;color:white;text-decoration:none;font-size:.875rem;font-weight:bold;border-radius:4px;transition:background-color .3s ease,transform .2s ease}
+.new-post-button:hover{background-color:#218838;transform:translateY(-2px)}
+.new-post-button:active{background-color:#1e7e34;transform:translateY(0)}
+.post-form-container{border:1px solid #007BFF;border-radius:8px;padding:30px;background-color:white;margin:20px auto;max-width:600px;box-shadow:0 2px 10px rgba(0,0,0,.1)}
+.post-form-container label{display:block;margin-bottom:5px;font-weight:bold;color:#377ba8}
+.post-form-container input[type=text],.post-form-container input[type=email],.post-form-container input[type=password],.post-form-container textarea,.post-form-container input[type=file]{width:100%;padding:12px;margin-bottom:20px;border:1px solid #ccc;border-radius:4px;font-size:1rem;transition:border-color .3s}
+.post-form-container input[type=text]:focus,.post-form-container input[type=email]:focus,.post-form-container input[type=password]:focus,.post-form-container textarea:focus{border-color:#007BFF;outline:none}
+.post-form-container input[type=submit]{background-color:#007BFF;color:white;border:none;cursor:pointer;padding:12px;font-size:1rem;transition:background-color .3s ease,transform .2s ease}
+.post-form-container input[type=submit]:hover{background-color:#0056b3;transform:translateY(-2px)}
+.post-form-container textarea{height:150px;resize:none;border-radius:4px}
+.footer{background-color:#34495e;color:white;padding:30px 20px;text-align:left;margin-top:20px;border-top:5px solid #377ba8}
+.footer-content{max-width:800px;margin:0 auto}
+.footer h2{margin:.5em 0;color:#a8be2bfd;font-size:1.5em}
+.footer p{margin:.5em 0;line-height:1.6}
+.footer-bottom{text-align:center;margin-top:20px;font-size:.9em;border-top:1px solid #444;padding-top:10px}
+.footer-bottom p{margin:0}

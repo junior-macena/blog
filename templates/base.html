@@ -1,19 +1,29 @@
 <html>
     <head>
-        <title> {% block title %}{% endblock %} - Meu Blog </title>
+        <title> {% block title %}{% endblock %} - TecWeb </title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap">
     </head>
 
     <body>
         <nav>
-            <h1>Meu Blog</h1>
+            <h1 class="logo">
+                <a href="{{ url_for('index') }}" style="text-decoration: none; color: inherit;">TecWeb</a>
+            </h1>
+            
             <ul>
+                <!-- Barra de pesquisa -->
+                <li>
+                    <form class="search-form">
+                        <input type="text" placeholder="Pesquisar">
+                    </form>
+                </li>
                 {% if current_user.is_authenticated %}
                     <li><span> {{ current_user.username }} </span></li>
-                    <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+                    <li><a href="{{ url_for('logout') }}">Sair</a></li>
                 {% else %}
-                    <li><a href="{{ url_for('register') }}">Register</a></li>
-                    <li><a href="{{ url_for('login') }}">Log In</a></li>
+                    <li><a href="{{ url_for('register') }}">Registrar-se</a></li>
+                    <li><a href="{{ url_for('login') }}">Entrar</a></li>
                 {% endif %}
             </ul>
         </nav>
@@ -29,5 +39,49 @@
             {% block content %}
             {% endblock %}
         </section>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <h2>Sobre o Blog</h2>
+                <p>Este blog é dedicado a compartilhar as últimas tendências e novidades em tecnologia, bem como tutoriais e análises de produtos.</p>
+                <h2>Missão</h2>
+                <p>Nossa missão é informar e educar nossos leitores sobre as inovações tecnológicas que impactam o nosso dia a dia.</p>
+                <h2>Equipe</h2>
+                <p>Nome da equipe: Integrantes</p>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 TecWeb. Todos os direitos reservados.</p>
+            </div>
+        </footer>
+
+        <!-- Seta para rolar para o topo -->
+        <a href="#" class="scroll-to-top" id="scrollToTop">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+                <path d="M12 2l-10 10h7v10h6v-10h7z"/>
+            </svg>
+        </a>
+
+        <a href="#" class="scroll-to-top" id="scrollToTop">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
+                <path d="M12 2l-10 10h7v10h6v-10h7z"/>
+            </svg>
+        </a>
+
+        <script>
+            // Mostrar/ocultar a seta para rolar para cima
+            window.onscroll = function() {
+                const scrollToTopButton = document.getElementById('scrollToTop');
+                if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+                    scrollToTopButton.style.display = "block"; // Mostra o botão
+                } else {
+                    scrollToTopButton.style.display = "none"; // Esconde o botão
+                }
+            };
+
+            // Função para rolar para o topo
+            document.getElementById('scrollToTop').onclick = function() {
+                window.scrollTo({top: 0, behavior: 'smooth'}); // Rola suavemente para o topo
+            };
+        </script>
     </body>
 </html>
