@@ -4,9 +4,11 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager, UserMixin, current_user, logout_user, login_user, login_required
 from werkzeug.security import check_password_hash, generate_password_hash
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy import desc
 from werkzeug.utils import secure_filename
 import os
 
+# Inicializa a aplicação Flask e o banco de dados
 app = Flask("hello")
 db_url = os.environ.get("DATABASE_URL") or "sqlite:///app.db"
 app.config["SQLALCHEMY_DATABASE_URI"] = db_url.replace("postgres", "postgresql")
@@ -16,6 +18,7 @@ app.config["SECRET_KEY"] = "pudim"
 db = SQLAlchemy(app)
 login = LoginManager(app)
 
+# Define o modelo Post
 class Post(db.Model):
     __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -25,6 +28,7 @@ class Post(db.Model):
     created = db.Column(db.DateTime, nullable=False, default=datetime.now)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
 
+# Define o modelo User com gerenciamento de senhas
 class User(UserMixin, db.Model):
     __tablename__ = "users"
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -40,16 +44,18 @@ class User(UserMixin, db.Model):
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+# Carrega o usuário para a sessão atual
 @login.user_loader
 def load_user(id):
     return User.query.get(int(id))
 
+# Rota da página inicial para exibir todos os posts
 @app.route("/")
 def index():
-    posts = Post.query.order_by(-Post.created).all()
+    posts = Post.query.order_by(desc(Post.created)).all()  # Obtém os posts em ordem decrescente de criação
     return render_template("index.html", posts=posts)
 
-
+# Rota de registro para novos usuários
 @app.route('/register', methods=["GET", "POST"])
 def register():
     if current_user.is_authenticated:
@@ -77,6 +83,7 @@ def register():
             return redirect(url_for('login'))
     return render_template('register.html')
 
+# Rota de login para usuários existentes
 @app.route('/login', methods=["GET", "POST"])
 def login():
     if current_user.is_authenticated:
@@ -92,11 +99,13 @@ def login():
         return redirect(url_for('index'))
     return render_template("login.html")
 
+# Rota de logout para usuários
 @app.route('/logout')
 def logout():
     logout_user()
     return redirect(url_for('index'))
 
+# Rota para criar novos posts
 @app.route('/create', methods=["GET", "POST"])
 @login_required
 def create():
@@ -108,7 +117,7 @@ def create():
         image_filename = None
         if image:
             image_filename = secure_filename(image.filename)
-            image.save(os.path.join('static/images', image_filename))  
+            image.save(os.path.join('static/images', image_filename))  # Salva a imagem no diretório
 
         try:
             post = Post(title=title, body=body, image=image_filename, author=current_user) 
@@ -116,9 +125,10 @@ def create():
             db.session.commit()
             return redirect(url_for('index'))
         except IntegrityError:
-            flash("Error ao criar Postagem, tente novamente mais tarde")
+            flash("Erro ao criar Postagem, tente novamente mais tarde")
     return render_template('create.html')
 
+# Rota para editar posts existentes
 @app.route('/edit/<int:post_id>', methods=["GET", "POST"])
 @login_required
 def edit(post_id):
@@ -143,6 +153,7 @@ def edit(post_id):
 
     return render_template('edit.html', post=post)
 
+# Rota para excluir posts
 @app.route('/delete/<int:post_id>', methods=["POST"])
 @login_required
 def delete(post_id):
@@ -155,10 +166,11 @@ def delete(post_id):
         flash("Você não tem permissão para excluir esta postagem.")
     return redirect(url_for('index'))
 
+# Inicializa o banco de dados e cria um usuário admin se necessário
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
-        # Verifique se o usuário admin já existe
+        # Verifica se o usuário admin já existe
         admin_user = User.query.filter_by(username='junior').first()
         if admin_user is None:
             admin_user = User(username='junior', email='junior@gmail.com', is_admin=True) 

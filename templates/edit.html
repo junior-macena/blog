@@ -1,24 +1,24 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 
-{% block title %} Editar Postagem {% endblock %}
+{% block title %} Editar Postagem {% endblock %} 
 
 {% block header %}
-    <h1>Editar Postagem</h1>
+    <h1>Editar Postagem</h1> 
 {% endblock %}
 
 {% block content %}
 <div class="post-form-container"> 
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data"> <!-- Formulário para enviar dados da postagem -->
         <label for="title">Título:</label>
-        <input id="title" name="title" required value="{{ post.title }}">
+        <input id="title" name="title" required value="{{ post.title }}"> <!-- Campo para título da postagem, preenchido -->
 
         <label for="body">Corpo:</label>
-        <textarea id="body" name="body" required>{{ post.body }}</textarea>
+        <textarea id="body" name="body" required>{{ post.body }}</textarea> <!-- Campo para conteúdo da postagem, preenchido -->
         
         <label for="image">Adicionar Imagem:</label>
-        <input id="image" name="image" type="file" accept="image/*">
+        <input id="image" name="image" type="file" accept="image/*"> <!-- Campo para upload de nova imagem -->
 
-        <input type="submit" value="Salvar Alterações">
+        <input type="submit" value="Salvar Alterações"> <!-- Botão para enviar as alterações -->
     </form>
 </div>
 {% endblock %}

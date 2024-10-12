@@ -1,42 +1,43 @@
 <html>
     <head>
-        <title> {% block title %}{% endblock %} - TecWeb </title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap">
+        <title> {% block title %}{% endblock %} - TecWeb </title> 
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}"> 
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap"> 
     </head>
 
     <body>
         <nav>
             <h1 class="logo">
-                <a href="{{ url_for('index') }}" style="text-decoration: none; color: inherit;">TecWeb</a>
+                <a href="{{ url_for('index') }}" style="text-decoration: none; color: inherit;">TecWeb</a> 
             </h1>
             
             <ul>
                 <!-- Barra de pesquisa -->
                 <li>
                     <form class="search-form">
-                        <input type="text" placeholder="Pesquisar">
+                        <input type="text" placeholder="Pesquisar"> 
                     </form>
                 </li>
-                {% if current_user.is_authenticated %}
-                    <li><span> {{ current_user.username }} </span></li>
-                    <li><a href="{{ url_for('logout') }}">Sair</a></li>
+                {% if current_user.is_authenticated %} <!-- Verifica se o usuário está autenticado -->
+                    <li><span> {{ current_user.username }} </span></li> <!-- Nome do usuário -->
+                    <li><a href="{{ url_for('logout') }}">Sair</a></li> <!-- Link para sair -->
                 {% else %}
-                    <li><a href="{{ url_for('register') }}">Registrar-se</a></li>
-                    <li><a href="{{ url_for('login') }}">Entrar</a></li>
+                    <li><a href="{{ url_for('register') }}">Registrar-se</a></li> 
+                    <li><a href="{{ url_for('login') }}">Entrar</a></li> 
                 {% endif %}
             </ul>
         </nav>
+        
         <section class="content">
             <header>
-                {% block header %}
+                {% block header %} 
                 {% endblock %}
             </header>
-            {% for message in get_flashed_messages() %}
+            {% for message in get_flashed_messages() %} <!-- Exibe mensagens flash (alertas) -->
                 <div class="flash"> {{ message }}</div>
             {% endfor %}
 
-            {% block content %}
+            {% block content %} 
             {% endblock %}
         </section>
 
@@ -50,20 +51,14 @@
                 <p>Nome da equipe: Integrantes</p>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 TecWeb. Todos os direitos reservados.</p>
+                <p>&copy; 2024 TecWeb. Todos os direitos reservados.</p> 
             </div>
         </footer>
 
         <!-- Seta para rolar para o topo -->
         <a href="#" class="scroll-to-top" id="scrollToTop">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
-                <path d="M12 2l-10 10h7v10h6v-10h7z"/>
-            </svg>
-        </a>
-
-        <a href="#" class="scroll-to-top" id="scrollToTop">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="white" viewBox="0 0 24 24">
-                <path d="M12 2l-10 10h7v10h6v-10h7z"/>
+                <path d="M12 2l-10 10h7v10h6v-10h7z"/> 
             </svg>
         </a>
 
@@ -72,15 +67,15 @@
             window.onscroll = function() {
                 const scrollToTopButton = document.getElementById('scrollToTop');
                 if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
-                    scrollToTopButton.style.display = "block"; // Mostra o botão
+                    scrollToTopButton.style.display = "block"; 
                 } else {
-                    scrollToTopButton.style.display = "none"; // Esconde o botão
+                    scrollToTopButton.style.display = "none"; 
                 }
             };
 
             // Função para rolar para o topo
             document.getElementById('scrollToTop').onclick = function() {
-                window.scrollTo({top: 0, behavior: 'smooth'}); // Rola suavemente para o topo
+                window.scrollTo({top: 0, behavior: 'smooth'}); 
             };
         </script>
     </body>

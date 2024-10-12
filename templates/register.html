@@ -8,21 +8,21 @@
 
 {% block content %}
 <div class="form-container">
-    <form method="POST">
+    <form method="POST"> 
         <label for="username">Usuário:</label>
-        <input id="username" name="username" required>
+        <input id="username" name="username" required> 
 
         <label for="email">E-mail:</label>
-        <input id="email" name="email" required type="email">
+        <input id="email" name="email" required type="email"> <!-- Campo para e-mail, obrigatório e com validação de formato -->
 
         <label for="password">Senha:</label>
-        <input id="password" name="password" required type="password">
+        <input id="password" name="password" required type="password"> 
 
         <label for="confirm_password">Confirmar senha:</label>
-        <input id="confirm_password" name="confirm_password" required type="password">
+        <input id="confirm_password" name="confirm_password" required type="password"> <!-- Campo para confirmar a senha -->
 
-        <input type="submit" value="Cadastrar">
+        <input type="submit" value="Cadastrar"> <!-- Botão para enviar o formulário -->
     </form>
-    <p><a href="{{ url_for('login') }}">Entrar</a></p>
+    <p><a href="{{ url_for('login') }}">Entrar</a></p> 
 </div>
 {% endblock %}

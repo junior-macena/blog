@@ -1,24 +1,24 @@
-{% extends "base.html" %}
+{% extends "base.html" %} 
 
-{% block title %} Nova Postagem {% endblock %}
+{% block title %} Nova Postagem {% endblock %} 
 
 {% block header %}
-    <h1>Nova Postagem</h1>
+    <h1>Nova Postagem</h1> 
 {% endblock %}
 
 {% block content %}
 <div class="post-form-container">
-    <form method="POST" enctype="multipart/form-data">
+    <form method="POST" enctype="multipart/form-data"> <!-- Formulário para enviar dados da postagem -->
         <label for="title">Título:</label>
-        <input id="title" name="title" required value="{{ request.form['title'] }}">
+        <input id="title" name="title" required value="{{ request.form['title'] }}"> <!-- Campo para título da postagem -->
 
         <label for="body">Corpo:</label>
-        <textarea id="body" name="body" required>{{ request.form['body'] }}</textarea>
+        <textarea id="body" name="body" required>{{ request.form['body'] }}</textarea> <!-- Campo para conteúdo da postagem -->
         
         <label for="image">Adicionar Imagem:</label>
-        <input id="image" name="image" type="file" accept="image/*">
+        <input id="image" name="image" type="file" accept="image/*"> <!-- Campo para upload de imagem -->
 
-        <input type="submit" value="Publicar">
+        <input type="submit" value="Publicar"> <!-- Botão para enviar o formulário -->
     </form>
 </div>
 {% endblock %}

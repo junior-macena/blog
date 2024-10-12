@@ -28,11 +28,13 @@
         {% if current_user.is_authenticated %}
             <div class="post-actions">
                 {% if post.author == current_user %}
+                    <!-- Se o autor do post é o usuário atual, permite editar ou excluir -->
                     <a href="{{ url_for('edit', post_id=post.id) }}" class="edit-link">Editar</a>
                     <form action="{{ url_for('delete', post_id=post.id) }}" method="post" style="display:inline;">
                         <button type="submit" class="danger">Excluir</button>
                     </form>
                 {% elif current_user.is_admin %}
+                    <!-- Se o usuário é um administrador, permite excluir qualquer post -->
                     <form action="{{ url_for('delete', post_id=post.id) }}" method="post" style="display:inline;">
                         <button type="submit" class="danger">Excluir</button>
                     </form>
@@ -41,9 +43,9 @@
         {% endif %}
     </article>
     {% if not loop.last %}
-        <hr>
+        <hr> <!-- Adiciona uma linha horizontal entre os posts, exceto após o último -->
     {% endif %}
 {% else %}
-    <p class="no-posts">Ops.. Não há publicações para exibir!</p>
+    <p class="no-posts">Ops.. Não há publicações para exibir!</p> <!-- Mensagem quando não há posts -->
 {% endfor %}
 {% endblock %}
